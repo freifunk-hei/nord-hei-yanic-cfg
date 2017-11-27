@@ -17,8 +17,25 @@ go get -v -u github.com/FreifunkBremen/yanic
 cd /etc
 wget https://github.com/Freifunk-AHB/nord-ahb-yanic-cfg/raw/master/etc/yanic.conf
 
+###Log Files
 mkdir -p /var/lib/yanic
-touch /var/log/yanic.log
+mkdir /var/log/yanic
+touch /var/log/yanic/yanic.log
+touch /etc/logrotate.d/yanic
+cat <<-EOF>> /etc/logrotate.d/yanic
+/var/log/yanic/*.log
+{
+ rotate 1
+ daily
+ missingok
+ sharedscripts
+ compress
+ postrotate
+   invoke-rc.d rsyslog rotate > /dev/null
+ endscript
+}
+EOF
+
 useradd yanic
 
 ### Ausgabe Verzeichnise erstellen
@@ -35,8 +52,6 @@ systemctl start yanic
 touch /etc/iptables.d/500-Allow-respondd
 cat <<-EOF>> /etc/iptables.d/500-Allow-respondd
 # Allow Service respondd
-ip46tables -A wan-input -p udp -m udp --dport 1001    -j ACCEPT
-ip46tables -A mesh-input -p udp -m udp --dport 1001    -j ACCEPT
 ip46tables -A wan-input -p udp -m udp --dport 45123    -j ACCEPT
 ip46tables -A mesh-input -p udp -m udp --dport 45123    -j ACCEPT
 EOF
