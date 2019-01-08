@@ -24,7 +24,7 @@ cat <<-EOF>> /etc/systemd/system/respondd.service
 Description=Respondd
 
 [Service]
-ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce -i br-ffnord -i tunneldigger -b bat-ffnord
+ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce -i br-ffnord -b bat-ffnord
 Restart=always
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
