@@ -20,11 +20,12 @@ build-firewall
 touch /etc/systemd/system/respondd.service
 chmod 0644 /etc/systemd/system/respondd.service
 cat <<-EOF>> /etc/systemd/system/respondd.service
-[Unit]
+[[Unit]
 Description=Respondd
+After=network.target
 
 [Service]
-ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce -i br-ffnord -b bat-ffnord
+ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce/providers -i br-ffnord -i ffnord-mvpn -b bat-ffnord -m 10.187.100.1
 Restart=always
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
