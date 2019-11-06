@@ -25,7 +25,7 @@ Description=Respondd
 After=network.target
 
 [Service]
-ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce/providers -i br-ffnord -i ffnord-mvpn -b bat-ffnord -m 10.187.100.1
+ExecStart=/opt/mesh-announce/respondd.py -d /opt/mesh-announce/providers -i br-ffnord-he -i ffnord-mvpn -b bat-ffnord-he -m 10.187.130.1
 Restart=always
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
@@ -37,4 +37,3 @@ systemctl daemon-reload
 systemctl enable respondd
 systemctl start respondd
 systemctl status respondd
-
